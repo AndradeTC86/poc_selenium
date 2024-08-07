@@ -9,6 +9,8 @@
   "author": "thiago.andrade",
   "license": "ISC",
   "dependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.7.0",
     "selenium-webdriver": "^4.19.0"
   }
 }
