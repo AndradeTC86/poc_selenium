@@ -1,15 +1,24 @@
-const SeleniumFactory = require('./seleniumFactory')
-
 class BasePage{
     static classPageTitle = 'title'
 
     constructor(driver = null, browser = null){
-        this.driver = driver
-        this.seleniumFactory = new SeleniumFactory(this.driver)
+        this.driver = driver        
     }
 
-    async initElements(){
-        
+    async navigate(url) {
+        await this.driver.get(url);
+    }
+
+    async findElement(selector) {
+        return this.driver.findElement(selector);
+    }
+
+    async clickElement(selector) {
+        await this.findElement(selector).click();
+    }
+
+    async typeIntoField(selector, text) {
+        await this.findElement(selector).sendKeys(text);
     }
 }
 
