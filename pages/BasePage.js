@@ -1,4 +1,4 @@
-const SeleniumFactory = require('./seleniumFactory')
+const seleniumFactory = require('./seleniumFactory')
 
 class BasePage{
     static classPageTitle = 'title'
