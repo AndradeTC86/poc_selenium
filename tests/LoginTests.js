@@ -2,6 +2,7 @@ const { expect } = require('chai')
 const BaseTest = require('./baseTest')
 const LoginPage = require('../pages/loginPage')
 const baseTest = new BaseTest()
+const login = require('../fixtures/login.json')
 
 describe('Login Page Test', function() {
   this.timeout(15000)
@@ -11,7 +12,7 @@ describe('Login Page Test', function() {
     const loginPage = new LoginPage(driver)
 
     await loginPage.goto()
-    await loginPage.login('locked_out_user', 'secret_sauce')
+    await loginPage.login(login.locked, login.password)
     const messageIsCorrect = await loginPage.validateLockedUserMessage()
     
     expect(messageIsCorrect).to.be.true;
