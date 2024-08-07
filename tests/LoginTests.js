@@ -1,20 +1,31 @@
 const { expect } = require('chai')
-const BaseTest = require('./baseTest')
-const LoginPage = require('../pages/loginPage')
-const baseTest = new BaseTest()
-const login = require('../fixtures/login.json')
+const BaseTest = require('../baseTest')
+const LoginPage = require('../page_objects/loginPage')
+const users = require('../fixtures/users.json')
 
-describe('Login Page Test', function() {
-  this.timeout(15000)
+class LoginTest extends BaseTest {
+    async before() {
+        await super.before();
+        this.loginPage = new LoginPage(this.driver)
+        this.homePage = new HomePage(this.driver)
+    }
 
-  it('should navigate to the login page and validate locked user message', async function() {
-    const driver = baseTest.getDriver()
-    const loginPage = new LoginPage(driver)
+    async after() {
+        await super.after()
+    }
 
-    await loginPage.goto()
-    await loginPage.login(login.locked, login.password)
-    const messageIsCorrect = await loginPage.validateLockedUserMessage()
-    
-    expect(messageIsCorrect).to.be.true;
-  })
-})
+    async run() {
+        describe('SauceDemo Login Test', function() {
+            it('should login with valid credentials', async function() {
+                await this.loginPage.navigate(process.env.BASE_URL)
+                await this.loginPage.login(users.validUser.username, users.validUser.password)
+                const isLoaded = await this.homePage.isLoaded()
+                expect(isLoaded).to.be.true
+            })
+        })
+    }
+}
+
+const test = new LoginTest()
+test.before().then(() => test.run().then(() => test.after()))
+
