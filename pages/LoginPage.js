@@ -1,30 +1,31 @@
-const { By, until } = require('selenium-webdriver')
 const BasePage = require('./basePage')
+const { By } = require('selenium-webdriver')
 
-class LoginPage extends BasePage{
-  constructor(driver){
-    super(driver)
-    this.txtUserName = By.css('#user-name')
-    this.txtPassword = By.css('#password')
-    this.btnLogin = By.css('#login-button')
-    this.msgLockedUser = By.css('[data-test=error]')
-  }
+class LoginPage extends BasePage {
+    constructor(driver) {
+        super(driver)
+        this.usernameField = By.id('user-name')
+        this.passwordField = By.id('password')
+        this.loginButton = By.id('login-button')
+    }
 
-  async goto(){
-    await this.driver.get('/')
-  }
+    async enterUsername(username) {
+        await this.typeIntoField(this.usernameField, username)
+    }
 
-  async login(username, password){
-    await this.driver.findElement(this.txtUserName).sendKeys(username)
-    await this.driver.findElement(this.txtPassword).sendkeys(password)
-    await this.driver.findElement(this.btnLogin).click()
-  }
+    async enterPassword(password) {
+        await this.typeIntoField(this.passwordField, password)
+    }
 
-  async validateLockedUserMessage(){
-    const errorMessage = await this.driver.wait(until.elementLocated(this.msgLockedUser), 5000)
-    const text = await errorMessage.getText()
-    return text === 'Epic sadface: Sorry, this user has been locked out.'
-  }
+    async clickLoginButton() {
+        await this.clickElement(this.loginButton)
+    }
+
+    async login(username, password) {
+        await this.enterUsername(username)
+        await this.enterPassword(password)
+        await this.clickLoginButton()
+    }
 }
 
 module.exports = LoginPage
