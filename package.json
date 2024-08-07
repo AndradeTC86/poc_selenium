@@ -4,7 +4,7 @@
   "description": "POC para avaliação do Selenium para o trabalho final da Especialização em Testes Ágeis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "author": "thiago.andrade",
   "license": "ISC",
