@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const BaseTest = require('../baseTest')
 const LoginPage = require('../page_objects/loginPage')
-const users = require('../fixtures/users.json')
+const login = require('../fixtures/users.json')
 
 class LoginTest extends BaseTest {
     async before() {
@@ -18,7 +18,7 @@ class LoginTest extends BaseTest {
         describe('SauceDemo Login Test', function() {
             it('should login with valid credentials', async function() {
                 await this.loginPage.navigate(process.env.BASE_URL)
-                await this.loginPage.login(users.validUser.username, users.validUser.password)
+                await this.loginPage.login(login.standard, login.password)
                 const isLoaded = await this.homePage.isLoaded()
                 expect(isLoaded).to.be.true
             })
