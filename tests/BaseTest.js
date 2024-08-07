@@ -1,24 +1,20 @@
 const { Builder } = require('selenium-webdriver')
+require('dotenv').config()
 
-class BaseTest{
-  constructor(){
-    this.driver = null
-  }
-
-  async setDriver(browser){
-    this.driver = await new Builder().forBrowser(browser).build()
-    await this.driver.manage().window().maximize()
-  }
-
-  async tearDown(){
-    if (this.driver){
-      await this.driver.quit()
+class BaseTest {
+    constructor() {
+        this.driver = null
     }
-  }
 
-  getDriver(){
-    return this.driver
-  }
+    async before() {
+        this.driver = await new Builder().forBrowser('chrome').build()
+    }
+
+    async after() {
+        if (this.driver) {
+            await this.driver.quit()
+        }
+    }
 }
 
 module.exports = BaseTest
