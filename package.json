@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "description": "POC para avaliação do Selenium para o trabalho final da Especialização em Testes Ágeis",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "mocha tests/*.js"
+    "test": "mocha tests/*.mjs"
   },
   "author": "thiago.andrade",
   "license": "ISC",
   "dependencies": {
-    "chai": "^5.1.1",
-    "dotenv": "^16.4.5",
-    "mocha": "^10.7.0",
+    "jasmine": "^5.2.0",
     "selenium-webdriver": "^4.19.0"
   }
 }
