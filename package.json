@@ -5,12 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha tests/*.mjs"
+    "test": "mocha --timeout 10000 tests/*.mjs"
   },
   "author": "thiago.andrade",
   "license": "ISC",
   "dependencies": {
-    "jasmine": "^5.2.0",
+    "axios": "^1.7.3",
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3",
     "selenium-webdriver": "^4.19.0"
   }
 }
