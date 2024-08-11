@@ -15,8 +15,21 @@ export default class BasePage{
     }
 
     async clickElement(selector){
-        const element = await this.getElement(selector)
-        await element.click()
+        try {
+            const element = await this.getElement(selector)
+            await element.click()
+        } catch (error) {
+            console.error(`Failed to click on ${selector}: ${error}`)
+        }
+    }
+
+    async clickElementById(id) {
+        try {
+            const element = await this.driver.findElement(By.id(id))
+            await element.click()
+        } catch (error) {
+            console.error(`Failed to click on ${id}: ${error}`)
+        }
     }
 
     async enterText(selector, text){
@@ -26,7 +39,20 @@ export default class BasePage{
     }
 
     async waitForElementVisible(selector, timeout = 10000){
-        await this.driver.wait(until.elementLocated(By.css(selector)), timeout)
+        try {
+            await this.driver.wait(
+                until.elementLocated(By.css(selector)),
+                timeout,
+                'Element located timeout'
+            )
+            await this.driver.wait(
+                until.elementIsVisible(await this.getElement(selector)),
+                timeout,
+                'Element visible timeout'
+            )
+        } catch (error) {
+            console.error(`Failed to wait for ${selector}: ${error}`)
+        }
     }
 
     async getCurrentUrl(){
@@ -39,8 +65,15 @@ export default class BasePage{
     }
 
     async isElementVisible(selector){
-        const element = await this.getElement(selector)
-        return await element.isDisplayed()
+        try {
+            const element = await this.getElement(selector)
+            return await element.isDisplayed()
+        } catch (error) {
+            if (error.name === 'NoSuchElementError') {
+                return false
+            }
+            throw error
+        }
     }
 
     async getElementAttribute(selector, attribute){

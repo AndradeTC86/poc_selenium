@@ -1,5 +1,6 @@
 import BasePage from "./BasePage.mjs"
 import { expect } from 'chai'
+import { By, Select } from 'selenium-webdriver'
 import axios from 'axios'
 import produto from '../fixtures/produtos.json' assert { type : 'json'}
 
@@ -28,20 +29,20 @@ export default class ProductsPage extends BasePage{
         expect(currentUrl).to.include('/inventory.html')
     }
 
-    getBtnAddToCart(produto){
+    getBtnAddToCart(produto){        
         return `[data-test="add-to-cart-${produto}"]`
     }
 
-    getBtnRemoveFromCart(produto){
+    getBtnRemoveFromCart(produto){        
         return `[data-test=remove-${produto}]`
     }
 
     async clickBtnAddtoCart(){
-        await this.clickElement(this.btnAddToCart(produto[0].produto))
+        await this.clickElement(this.getBtnAddToCart(produto[0].produto))
     }
 
     async clickBtnRemoveFromCart(){
-        await this.clickElement(this.btnRemoveFromCart(produto[0].produto))
+        await this.clickElement(this.getBtnRemoveFromCart(produto[0].produto))
     }
 
     async clickBtnAddToCartFromProductPage(){
@@ -55,7 +56,7 @@ export default class ProductsPage extends BasePage{
     async clickBtnAddToCartAllProducts(){
         for (const produtos of produto){
             await this.clickElement(this.getBtnAddToCart(produtos.produto))
-        }        
+        }    
     }
 
     async clickBtnRemoveFromCartAllProducts(){
@@ -77,20 +78,38 @@ export default class ProductsPage extends BasePage{
     }
 
     async orderByNameZtoA(){
-        await this.getElement(this.menuOrdenar).sendKeys('Name (Z to A)')
+        const menuOrdenar = await this.driver.findElement(By.css(this.menuOrdenar))
+        const select = new Select(menuOrdenar)                
+        await select.selectByVisibleText('Name (Z to A)')
     }
 
     async orderByPriceLowToHigh(){
-        await this.getElement(this.menuOrdenar).sendKeys('Price (low to high)')
+        const menuOrdenar = await this.driver.findElement(By.css(this.menuOrdenar))
+        const select = new Select(menuOrdenar)                
+        await select.selectByVisibleText('Price (low to high)')
     }
 
     async orderByPriceHighToLow(){
-        await this.getElement(this.menuOrdenar).sendKeys('Price (high to low)')
+        const menuOrdenar = await this.driver.findElement(By.css(this.menuOrdenar))
+        const select = new Select(menuOrdenar)                
+        await select.selectByVisibleText('Price (high to low)')
+    }
+
+    async validateBdgShoppingCartNumber(number){
+        const badgeText = await this.getElementText(this.bdgShoppingCart)
+        expect(badgeText).to.equal(number)
     }
 
     async validateBdgShoppingCartNotVisible(){
-        const isVisible = await this.isElementVisible(this.bdgShoppingCart)
-        expect(isVisible).to.be.false
+        try {
+            const isVisible = await this.isElementVisible(this.bdgShoppingCart);
+            expect(isVisible).to.be.false;
+        } catch (error) {
+            if (error.name === 'NoSuchElementError') {
+                return
+            }
+            throw error
+        }
     }
 
     async validateBtnAddToCartFromProductPageVisible(){
@@ -103,12 +122,12 @@ export default class ProductsPage extends BasePage{
         expect(isVisible).to.be.true
     }
 
-    async validateBtnAddToCartFromProductPageVisible(){
+    async validateBtnAddToCartVisible(){
         const isVisible = await this.isElementVisible(this.getBtnAddToCart(produto[0].produto))
         expect(isVisible).to.be.true
     }
 
-    async validateBtnRemoveFromCartFromProductPageVisible(){
+    async validateBtnRemoveFromCartVisible(){
         const isVisible = await this.isElementVisible(this.getBtnRemoveFromCart(produto[0].produto))
         expect(isVisible).to.be.true
     }
