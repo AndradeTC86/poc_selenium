@@ -1,10 +1,10 @@
 import LoginPage from '../pages/LoginPage.mjs'
 import ProductsPage from '../pages/productsPage.mjs'
-//import YourCartPage from '../pages/yourCartPage.mjs'
-//import CheckoutYourInformationPage from '../pages/checkoutYourInformationPage.mjs'
-//import CheckoutOverviewPage from '../pages/checkoutOverviewPage.mjs'
+import YourCartPage from '../pages/yourCartPage.mjs'
+import CheckoutYourInformationPage from '../pages/checkoutYourInformationPage.mjs'
+import CheckoutOverviewPage from '../pages/checkoutOverviewPage.mjs'
 import login from '../fixtures/login.json' assert { type: 'json' }
-//import cliente from '../fixtures/clientes.json' assert { type: 'json' }
+import cliente from '../fixtures/clientes.json' assert { type: 'json' }
 
 export async function autoLogin(driver) {
   const loginPage = new LoginPage(driver)
@@ -20,7 +20,7 @@ export async function setCart(driver) {
   await productsPage.validateBdgShoppingCartNumber('1')
   await productsPage.clickBtnGoToCart()
 }
-/*
+
 export async function setCheckout(driver) {
   await setCart(driver)
   const yourCartPage = new YourCartPage(driver)
@@ -39,4 +39,3 @@ export async function setCheckoutComplete(driver) {
   const checkoutOverviewPage = new CheckoutOverviewPage(driver)
   await checkoutOverviewPage.clickBtnContinue()
 }
-*/
