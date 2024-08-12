@@ -47,9 +47,17 @@ export default class CheckoutYourInformationPage extends BasePage{
     }
 
     async fillTextFields(firstName, lastName, zipCode) {
-        await this.fillElement(this.txtFirstName, firstName)
-        await this.fillElement(this.txtLastName, lastName)
-        await this.fillElement(this.txtZipCode, zipCode)
+        await this.enterText(this.txtFirstName, firstName)
+        await this.enterText(this.txtLastName, lastName)
+        await this.enterText(this.txtZipCode, zipCode)
+    }
+
+    async fillTxtFirstName(firstName) {
+        await this.enterText(this.txtFirstName, firstName)
+    }
+
+    async fillTxtLastName(lastName) {
+        await this.enterText(this.txtLastName, lastName)
     }
 
     async validateFirstNameRequiredMessage() {

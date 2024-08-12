@@ -64,6 +64,12 @@ export default class BasePage{
         return await element.getText()
     }
 
+    async isElementEmpty(selector) {
+        const element = await this.getElement(selector)
+        const value = await element.getAttribute('value')
+        return value === ''
+    }
+
     async isElementVisible(selector){
         try {
             const element = await this.getElement(selector)
