@@ -1,5 +1,5 @@
 import LoginPage from '../pages/LoginPage.mjs'
-//import ProductsPage from '../pages/productsPage.mjs'
+import ProductsPage from '../pages/productsPage.mjs'
 //import YourCartPage from '../pages/yourCartPage.mjs'
 //import CheckoutYourInformationPage from '../pages/checkoutYourInformationPage.mjs'
 //import CheckoutOverviewPage from '../pages/checkoutOverviewPage.mjs'
@@ -12,14 +12,15 @@ export async function autoLogin(driver) {
   await loginPage.login(login.standard, login.password)
 }
 
-/*
+
 export async function setCart(driver) {
   await autoLogin(driver)
   const productsPage = new ProductsPage(driver)
   await productsPage.clickBtnAddtoCart()
+  await productsPage.validateBdgShoppingCartNumber('1')
   await productsPage.clickBtnGoToCart()
 }
-
+/*
 export async function setCheckout(driver) {
   await setCart(driver)
   const yourCartPage = new YourCartPage(driver)

@@ -5,7 +5,7 @@ import produto from '../fixtures/produtos.json' assert { type : 'json'}
 export default class YourCartPage extends BasePage{
     constructor(driver){
         super(driver)
-        this.lblTitle = '[data-test="cart-title]'
+        this.lblTitle = '[data-test="title"]'
         this.lblItemName = '[data-test="inventory-item-name"]'
         this.btnCheckout = '[data-test="checkout"]'
         this.btnContinueShopping = '[data-test="continue-shopping"]'
