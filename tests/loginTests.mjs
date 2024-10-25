@@ -49,5 +49,4 @@ describe('Testar feature login', () => {
         await loginPage.login(login.visual, login.password)
         await productsPage.validateLargeImage()
     })
-
 })
