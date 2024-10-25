@@ -37,12 +37,20 @@ export default class ProductsPage extends BasePage{
         return `[data-test=remove-${produto}]`
     }
 
+    getBtnAddToCartById(produto){        
+        return `add-to-cart-${produto}`
+    }
+
+    getBtnRemoveFromCartById(produto){        
+        return `remove-${produto}`
+    }
+
     async clickBtnAddtoCart(){
-        await this.clickElement(this.getBtnAddToCart(produto[0].produto))
+        await this.clickElementById(this.getBtnAddToCartById(produto[0].produto))
     }
 
     async clickBtnRemoveFromCart(){
-        await this.clickElement(this.getBtnRemoveFromCart(produto[0].produto))
+        await this.clickElementById(this.getBtnRemoveFromCartById(produto[0].produto))
     }
 
     async clickBtnAddToCartFromProductPage(){
@@ -55,13 +63,13 @@ export default class ProductsPage extends BasePage{
 
     async clickBtnAddToCartAllProducts(){
         for (const produtos of produto){
-            await this.clickElement(this.getBtnAddToCart(produtos.produto))
+            await this.clickElementById(this.getBtnAddToCartById(produtos.produto))
         }    
     }
 
     async clickBtnRemoveFromCartAllProducts(){
         for (const produtos of produto){
-            await this.clickElement(this.getBtnRemoveFromCart(produtos.produto))
+            await this.clickElementById(this.getBtnRemoveFromCartById(produtos.produto))
         }
     }
 
