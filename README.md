@@ -7,7 +7,7 @@ Esse é um repositório de automação de testes, desenvolvido para trabalhar co
 ## Table of Contents
 
 1. [Objetivo](#objetivo)
-2. [Estrtutura do projeto](#estrutura-do-projeto)
+2. [Estrutura do projeto](#estrutura-do-projeto)
 5. [Setup inicial](#setup-inicial)
 6. [Executando Automação](#executando-automação)
 
